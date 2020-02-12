@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Categorías">
+        <item>Informática</item>
+        <item>Electrónica</item>
+        <item>Móbiles</item>
+    </string-array>
+
+
+    <string-array name="Informática">
+        <item>PC de Sobremesa</item>
+        <item>Portatil</item>
+        <item>Monitor</item>
+    </string-array>
+
+    <string-array name="Electrónica">
+        <item>Televisión</item>
+        <item>DVD</item>
+    </string-array>
+
+    <string-array name="Móbiles">
+        <item>Pixel</item>
+        <item>Galaxy</item>
+        <item>Iphone</item>
+        <item>Xiaomi</item>
+    </string-array>
+    <string-array name="cantidade">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+</resources>

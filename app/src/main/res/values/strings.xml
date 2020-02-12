@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Tarea3</string>
+    <string name="administrador">Administrador</string>
+    <string name="usuario">Usuario</string>
+
+
+    <string name="sair">Saír</string>
+    <string name="login">Login</string>
+    <string name="login_incorrecto">¡Usuario ou Contraseña incorrecta!</string>
+    <string name="seleccionar_check">Selecciona Usuario o Administrador</string>
+    <string name="categoria">Categoría</string>
+    <string name="producto">Producto</string>
+    <string name="seguinte">Seguinte</string>
+    <string name="cantidade">Cantidade</string>
+    <string name="finalizar">Finalizar</string>
+    <string name="direccion">Dirección</string>
+    <string name="cidade">Cidade</string>
+    <string name="codigoPostal">Código postal</string>
+    <string name="menu">Menu</string>
+    <string name="menuAdmin">Menu Administrador</string>
+    <string name="novoPedido">Novo Pedido</string>
+    <string name="rua">Rúa</string>
+    <string name="nombre_cliente1">Renato Hezamedias</string>
+    <string name="nombre_admin">Diego Santiago Lijó</string>
+    <string name="registro">Rexistrarse</string>
+    <string name="nombre">Nome</string>
+    <string name="apellidos">Apelidos</string>
+    <string name="e_mail">email</string>
+    <string name="nomeUsusario">Nome  de Usuario</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="RepetirContraseña">Repetir Contraseña</string>
+    <string name="ContraseñaDiferente">As contraseñas non son iguais</string>
+    <string name="usuarioregistado">Nombre de usuario ya registrado</string>
+    <string name="emailregistrado">Email ya registrado</string>
+    <string name="registrado">Registro correcto</string>
+    <string name="contraseñaVacia">Contraseña vacia</string>
+    <string name="camposVacios">Hay campos vacios</string>
+    <string name="emailIncorrecto">Email  formato incorrecto</string>
+    <string name="contraseñaIncorrecta">Contraseña incorrecta</string>
+    <string name="usuarioNoRegistrado">Usuario no registrado</string>
+    <string name="bienvenido">Bienvenido</string>
+    <string name="facerPedido">Facer Pedido</string>
+    <string name="verCompras">Compras realizadas</string>
+    <string name="verPedidos">Pedidos realizados</string>
+    <string name="pedidosEnTrámite">Pedidos en trámite</string>
+    <string name="pedidosAceptados">Pedidos Aceptados</string>
+    <string name="pedidosRechazados">Pedidos Rexeitados</string>
+    <string name="ifRoom">ifRoom</string>
+    <string name="pedidoconfirmado">Pedido realizado</string>
+    <string name="SeleccionaFoto">Seleccionar Foto</string>
+    <string name="FalloImagen">Error al seleccionar la foto</string>
+    <string name="Benvido">Benvido</string>
+    <string name="modificarDatos">Modificar Datos</string>
+    <string name="Modfificar">Modificar</string>
+
+</resources>

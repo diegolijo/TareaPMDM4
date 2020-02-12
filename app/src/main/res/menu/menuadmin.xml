@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context="com.jito.tareaud4.MenuActivityAdmin">
+
+<!-- "Mark Favorite", should appear as action button if possible -->
+
+<!-- Settings, should always be in the overflow -->
+<item
+    android:id="@+id/menu_pedido_tamite"
+    android:title="@string/pedidosEnTrámite"
+    app:showAsAction="never" />
+
+<item
+    android:id="@+id/menu_ver_aceptados"
+    android:title="@string/pedidosAceptados"
+    app:showAsAction="never" />
+
+<item
+    android:id="@+id/menu_ver_rechazados"
+    android:title="@string/pedidosRechazados"
+    app:showAsAction="never" />
+
+
+<item
+    android:id="@+id/menu_salir"
+    android:title="@string/sair"
+    app:showAsAction="never" />
+
+
+</menu>
