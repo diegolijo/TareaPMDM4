@@ -86,7 +86,7 @@ public class Direccion_Activity extends AppCompatActivity {
 
             //dialogo -> actualizar el campo estado en BD
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Aceptar ou rexeitar o pedido");
+            builder.setMessage(R.string.aceptar_pedido);
             builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

@@ -2,25 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.jito.tareaud4.MenuActivity">
+    tools:context="com.jito.tareaud4.ModificarRegistroActivity">
 
     <!-- "Mark Favorite", should appear as action button if possible -->
 
     <!-- Settings, should always be in the overflow -->
-    <item
-        android:id="@+id/menu_facer_pedido"
-        android:title="@string/facerPedido"
-        app:showAsAction="never" />
 
-    <item
-        android:id="@+id/menu_ver_pedidos"
-        android:title="@string/pedidosEnTrámite"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/menu_ver_compras"
-        android:title="@string/verCompras"
-        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_modificarReistro"
@@ -32,8 +19,6 @@
         android:id="@+id/menu_alir"
         android:title="@string/sair"
         app:showAsAction="never" />
-
-
 
 
 </menu>

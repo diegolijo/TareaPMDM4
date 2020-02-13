@@ -69,7 +69,7 @@
             android:id="@+id/button6"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:onClick="clickModificarDatos"
+            android:onClick="ModificarDatos"
             android:text="@string/modificarDatos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

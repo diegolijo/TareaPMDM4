@@ -1,9 +1,5 @@
 package com.jito.tareaud4;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.room.Room;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,10 +10,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
+
 import com.jito.tareaud4.dummy.datos.BaseDatos;
 import com.jito.tareaud4.dummy.datos.Usuario;
-
-import java.text.MessageFormat;
 
 public class MenuActivityAdmin extends AppCompatActivity {
     public static String usuario;
@@ -44,7 +42,7 @@ public class MenuActivityAdmin extends AppCompatActivity {
 
 
         TextView TV_nombre = findViewById(R.id.TextView_nombre);
-        TV_nombre.setText(R.string.Benvido + usuarioBD.nombre+" "+usuarioBD.apellidos);
+        TV_nombre.setText(R.string.Benvido + usuarioBD.nombre + " " + usuarioBD.apellidos);
 
         //pintamos el imageview con la foto (ruta guardada en la BD)
         Bitmap bitmap = BitmapFactory.decodeFile(usuarioBD.foto);
@@ -64,7 +62,6 @@ public class MenuActivityAdmin extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -73,6 +70,9 @@ public class MenuActivityAdmin extends AppCompatActivity {
 
         //int id = item.getItemId();
         switch (item.getItemId()) {
+            case R.id.menu_modificarReistro:
+                clickModificarRegistro();
+                return true;
             case R.id.menu_pedido_tamite:
                 clickverPedidoMenu();
                 return true;
@@ -110,11 +110,15 @@ public class MenuActivityAdmin extends AppCompatActivity {
         clickverRechazadosMenu();
     }
 
-    public void salir(View view) {
-        finish();
+    public void ModificarDatos(View view) {
+
+        clickModificarRegistro();
     }
 
 
+    public void salir(View view) {
+        finish();
+    }
 
 
     private void clickverRechazadosMenu() {
@@ -126,6 +130,7 @@ public class MenuActivityAdmin extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     private void clickveracAptadossMenu() {
         Intent intent = new Intent(this, VerPedidosActivity.class);
         intent.putExtra("usuario", usuario);
@@ -134,6 +139,7 @@ public class MenuActivityAdmin extends AppCompatActivity {
         intent.putExtra("titulo", "Pedidos aceptados");
         startActivity(intent);
     }
+
 
     private void clickverPedidoMenu() {
         Intent intent = new Intent(this, VerPedidosActivity.class);
@@ -145,12 +151,14 @@ public class MenuActivityAdmin extends AppCompatActivity {
     }
 
 
-    public void clickModificarDatos(View view) {
+    private void clickModificarRegistro() {
 
         Intent intent = new Intent(this, ModificarRegistroActivity.class);
         intent.putExtra("usuario", usuario);
         startActivity(intent);
+
     }
+
 
 
 }

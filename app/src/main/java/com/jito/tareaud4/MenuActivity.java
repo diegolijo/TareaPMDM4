@@ -85,6 +85,9 @@ public class MenuActivity extends AppCompatActivity {
             case R.id.menu_ver_compras:
                 verCompras();
                 return true;
+            case R.id.menu_modificarReistro:
+                clickModificarDatos();
+                return true;
             case R.id.menu_alir:
                 finish();
         }
@@ -140,7 +143,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
-    public void clickModificarDatos(View view) {
+    public void clickModificarDatos() {
 
         Intent intent = new Intent(this, ModificarRegistroActivity.class);
         intent.putExtra("usuario", usuario);

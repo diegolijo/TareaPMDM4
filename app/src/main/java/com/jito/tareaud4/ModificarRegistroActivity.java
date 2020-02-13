@@ -13,8 +13,9 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
 import androidx.room.Room;
 
 import com.jito.tareaud4.dummy.datos.BaseDatos;
@@ -59,11 +63,62 @@ public class ModificarRegistroActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         user = extras.getString("usuario");
 
+        //Abrimos usuario BD, seleccio0namos la ruta de la foto, pintamos ImageView y rellenamos los campos
+        BaseDatos db = Room.databaseBuilder(getApplicationContext(), BaseDatos.class, "tareaud4").allowMainThreadQueries().build(); //
+        Usuario usuario = db.Dao().selectUsuario(user);
+
+        Bitmap bitmap = BitmapFactory.decodeFile(usuario.foto);
+        ImageView imgeview = findViewById(R.id.imageView);
+        imgeview.setImageBitmap(bitmap);
+
+        EditText ETnome = findViewById(R.id.editText_nombre);
+        EditText ETapellidos = findViewById(R.id.editText_apellidos);
+        EditText ETemail = findViewById(R.id.editText_email);
+        EditText Epass1 = findViewById(R.id.editText_contraseña);
+        EditText Epass2 = findViewById(R.id.editText_contraseña2);
+
+        ETnome.setText(usuario.nombre);
+        ETapellidos.setText(usuario.apellidos);
+        ETemail.setText(usuario.email);
+        Epass1.setText(usuario.contraseña);
+        Epass2.setText(usuario.contraseña);
+
 
     }
 
-    public void ClickModificar(View view) {
 
+
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.modificar_registro, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        //int id = item.getItemId();
+        switch (item.getItemId()) {
+
+            case R.id.menu_modificarReistro:
+                clickModificarRegistro();
+                return true;
+            case R.id.menu_salir:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    private void clickModificarRegistro() {
         BaseDatos db = Room.databaseBuilder(getApplicationContext(), BaseDatos.class, "tareaud4").allowMainThreadQueries().build(); //
 
 
@@ -82,17 +137,11 @@ public class ModificarRegistroActivity extends AppCompatActivity {
         String pass2 = ETpass2.getText().toString();
 
 
-        if (nome.equals("drop table") || apellidos.equals("drop table") || email.equals("drop table") || pass.equals("drop table") || pass2.equals("drop table")) {
-            TVaviso.setText(R.string.camposVacios);
-        }
-
-
-        if (nome.equals("") || apellidos.equals("") || email.equals("") || pass.equals("") || pass2.equals("")) {
+        if (nome.equals("") || apellidos.equals("") || email.equals("")) {
             TVaviso.setText(R.string.camposVacios);
         } else if (!email.contains("@") || !email.contains(".")) {
             TVaviso.setText(R.string.emailIncorrecto);
         } else {
-
 
 
             //crompobamos  contraseñas son iguales
@@ -102,7 +151,7 @@ public class ModificarRegistroActivity extends AppCompatActivity {
                 TVaviso.setText("");
 
                 Usuario usuario = new Usuario();
-                usuario.usuario= user;
+                usuario.usuario = user;
                 usuario.nombre = nome;
                 usuario.apellidos = apellidos;
                 usuario.email = email;
@@ -114,11 +163,11 @@ public class ModificarRegistroActivity extends AppCompatActivity {
                 }
 
                 TVaviso.setText("");
-                db.Dao().updateUsuario(usuario.usuario,usuario.nombre,usuario.apellidos,usuario.contraseña,rutaFoto,usuario.email);
+                db.Dao().updateUsuario(usuario.usuario, usuario.nombre, usuario.apellidos, usuario.contraseña, rutaFoto, usuario.email);
 
                 Usuario usuarioNuevo = db.Dao().selectUsuario(usuario.usuario);
 
-                Toast toastregistrado = Toast.makeText(this, String.format("Usuario registrado\n%s\n%s\n%s\n%s", usuarioNuevo.usuario, usuarioNuevo.email, usuarioNuevo.nombre, usuarioNuevo.apellidos), Toast.LENGTH_LONG);
+                Toast toastregistrado = Toast.makeText(this, String.format("Usuario modificado\n%s\n%s\n%s\n%s", usuarioNuevo.usuario, usuarioNuevo.email, usuarioNuevo.nombre, usuarioNuevo.apellidos), Toast.LENGTH_LONG);
                 toastregistrado.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toastregistrado.show();
 
@@ -129,6 +178,26 @@ public class ModificarRegistroActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
+    }
+
+    public void clickModificar(View view) {
+
+        clickModificarRegistro();
+
+    }
+
+    public void borrarCampo(View view) {
+
+        TextView campo = findViewById(R.id.editText_nombre);
+        campo.setText("");
+        campo.requestFocus();
+
+    }
 
     //abrimos la activity del SO que gestiona camara
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -148,11 +217,11 @@ public class ModificarRegistroActivity extends AppCompatActivity {
     }
 
 
-    // respuesta del permiso CAMARA
+    //respuesta del permiso para acceder a la CAMARA
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == MY_CAMERA_REQUEST_CODE) {
 

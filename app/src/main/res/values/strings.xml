@@ -25,7 +25,7 @@
     <string name="registro">Rexistrarse</string>
     <string name="nombre">Nome</string>
     <string name="apellidos">Apelidos</string>
-    <string name="e_mail">email</string>
+    <string name="e_mail">Email</string>
     <string name="nomeUsusario">Nome  de Usuario</string>
     <string name="contraseña">Contraseña</string>
     <string name="RepetirContraseña">Repetir Contraseña</string>
@@ -52,5 +52,6 @@
     <string name="Benvido">Benvido</string>
     <string name="modificarDatos">Modificar Datos</string>
     <string name="Modfificar">Modificar</string>
+    <string name="aceptar_pedido">Aceptar pedido¿?</string>
 
 </resources>
