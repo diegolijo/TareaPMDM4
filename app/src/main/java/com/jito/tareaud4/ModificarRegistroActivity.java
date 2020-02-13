@@ -118,6 +118,7 @@ public class ModificarRegistroActivity extends AppCompatActivity {
 
     }
 
+
     private void clickModificarRegistro() {
         BaseDatos db = Room.databaseBuilder(getApplicationContext(), BaseDatos.class, "tareaud4").allowMainThreadQueries().build(); //
 
