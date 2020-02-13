@@ -1,0 +1,3 @@
+Cando nos rexistramos poderemos insertar unha imaxe de perfil ademais dos das que se nos pedía. Esta imaxe pódese obter buscando nos arquivos do móbil ou dende a propia app poderase quitar unha foto. Isto é para calquera dos dous usuarios.
+Na pantalla principal a imaxe que se mostrará é a do propio usuario. Isto e tanto para o cliente como para o administrador.
+Engadiremos un botón na cal podemos cambiar tódolos datos (incluidas a imaxe de perfil) agás o nome de usuario. Para o contrasinal o usuario terá que meter o novo contrasinal 2 veces e que estes coincidan. Isto é tanto para o cliente como para o administrador.
