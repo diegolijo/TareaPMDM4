@@ -90,8 +90,6 @@ public class ModificarRegistroActivity extends AppCompatActivity {
         ETemail.setText(usuario.email);
         Epass1.setText(usuario.contraseña);
         Epass2.setText(usuario.contraseña);
-
-
     }
 
 
@@ -101,7 +99,6 @@ public class ModificarRegistroActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.modificar_registro, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -122,13 +119,11 @@ public class ModificarRegistroActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return false;
     }
-
 
     //abrimos la activity del SO que gestiona camara
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -146,7 +141,6 @@ public class ModificarRegistroActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_REQUEST_CODE);
         }
     }
-
 
     //respuesta del permiso para acceder a la CAMARA
     @Override
@@ -177,7 +171,6 @@ public class ModificarRegistroActivity extends AppCompatActivity {
 
         }
     }
-
 
     //recogemos la imagen
     @Override
@@ -239,7 +232,7 @@ public class ModificarRegistroActivity extends AppCompatActivity {
                 if (rutaFoto == null) {
                     rutaFoto = usuario.foto;
 
-                }else{
+                } else {
 
                     // borramos la foto vieja
                     arquivo = new File(usuario.foto);
@@ -247,7 +240,6 @@ public class ModificarRegistroActivity extends AppCompatActivity {
                         arquivo.delete();
                     }
                 }
-
 
 
                 TVaviso.setText("");
@@ -258,10 +250,6 @@ public class ModificarRegistroActivity extends AppCompatActivity {
                 Toast toastregistrado = Toast.makeText(this, String.format("Usuario modificado\n%s\n%s\n%s\n%s", usuarioNuevo.usuario, usuarioNuevo.email, usuarioNuevo.nombre, usuarioNuevo.apellidos), Toast.LENGTH_LONG);
                 toastregistrado.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toastregistrado.show();
-
-
-
-
 
 
                 finish();
@@ -285,11 +273,5 @@ public class ModificarRegistroActivity extends AppCompatActivity {
 
     }
 
-
-    public static Bitmap rotarBitmap(Bitmap source, float angle) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
-    }
 
 }

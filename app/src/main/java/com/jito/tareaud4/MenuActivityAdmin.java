@@ -36,22 +36,6 @@ public class MenuActivityAdmin extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         usuario = extras.getString("usuario");
 
-        // abrir bd
-        BaseDatos db = Room.databaseBuilder(getApplicationContext(),
-                BaseDatos.class, "tareaud4").allowMainThreadQueries().build(); //
-        //buscar usuario
-        Usuario usuarioBD = db.Dao().selectUsuario(usuario);
-
-
-        TextView TV_nombre = findViewById(R.id.textView_nome);
-        TV_nombre.setText( getString(R.string.Benvido) + " " + usuarioBD.nombre + " " + usuarioBD.apellidos);
-
-        //pintamos el imageview con la foto (ruta guardada en la BD)
-        Bitmap bitmap = BitmapFactory.decodeFile(usuarioBD.foto);
-        if (bitmap != null) {
-            ImageView imgeview = findViewById(R.id.view_foto);
-            imgeview.setImageBitmap(bitmap);
-        }
     }
 
     @Override
@@ -63,6 +47,10 @@ public class MenuActivityAdmin extends AppCompatActivity {
                 BaseDatos.class, "tareaud4").allowMainThreadQueries().build(); //
         //buscar usuario
         Usuario usuarioBD = db.Dao().selectUsuario(usuario);
+
+        //escribimos la etiqueta con el nombre del usuario
+        TextView tvNombre = findViewById(R.id.textView_nome);
+        tvNombre.setText( getString(R.string.Benvido)+ " " + usuarioBD.nombre+" "+usuarioBD.apellidos);
 
 
         //pintamos el imageview con la foto (ruta guardada en la BD)
