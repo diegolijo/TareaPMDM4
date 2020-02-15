@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -41,8 +43,8 @@ public class MenuActivityAdmin extends AppCompatActivity {
         Usuario usuarioBD = db.Dao().selectUsuario(usuario);
 
 
-        TextView TV_nombre = findViewById(R.id.TextView_nombre);
-        TV_nombre.setText(R.string.Benvido + usuarioBD.nombre + " " + usuarioBD.apellidos);
+        TextView TV_nombre = findViewById(R.id.textView_nome);
+        TV_nombre.setText( getString(R.string.Benvido) + " " + usuarioBD.nombre + " " + usuarioBD.apellidos);
 
         //pintamos el imageview con la foto (ruta guardada en la BD)
         Bitmap bitmap = BitmapFactory.decodeFile(usuarioBD.foto);
@@ -50,8 +52,26 @@ public class MenuActivityAdmin extends AppCompatActivity {
             ImageView imgeview = findViewById(R.id.view_foto);
             imgeview.setImageBitmap(bitmap);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // abrir bd
+        BaseDatos db = Room.databaseBuilder(getApplicationContext(),
+                BaseDatos.class, "tareaud4").allowMainThreadQueries().build(); //
+        //buscar usuario
+        Usuario usuarioBD = db.Dao().selectUsuario(usuario);
 
 
+        //pintamos el imageview con la foto (ruta guardada en la BD)
+        Bitmap bitmap = BitmapFactory.decodeFile(usuarioBD.foto);
+        if (bitmap != null) {
+            ImageView imgeview = findViewById(R.id.view_foto);
+            imgeview.setImageBitmap(bitmap);
+
+        }
     }
 
     @Override
@@ -94,6 +114,8 @@ public class MenuActivityAdmin extends AppCompatActivity {
         onBackPressed();
         return false;
     }
+
+
 
 
     public void verPedidosTramite(View view) {
@@ -158,7 +180,6 @@ public class MenuActivityAdmin extends AppCompatActivity {
         startActivity(intent);
 
     }
-
 
 
 }

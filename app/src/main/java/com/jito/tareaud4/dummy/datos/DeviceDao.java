@@ -53,24 +53,11 @@ public interface DeviceDao {
 
 
 
-
-
-
-
     @Insert//(onConflict = OnConflictStrategy.REPLACE)
     void insertUsuario(Usuario user);
 
     @Insert//(onConflict = OnConflictStrategy.REPLACE)
     void insertPedido(Pedido pedido);
-
-
-    @Insert
-    void insertBothUsers(Usuario user1, Usuario user2);
-
-    @Insert
-    void insertUsersAndFriends(Usuario user, List<Usuario> friends);
-
-
 
 
 

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,6 +36,7 @@ import com.jito.tareaud4.dummy.datos.BaseDatos;
 import com.jito.tareaud4.dummy.datos.Usuario;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -63,14 +66,19 @@ public class ModificarRegistroActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         user = extras.getString("usuario");
 
-        //Abrimos usuario BD, seleccio0namos la ruta de la foto, pintamos ImageView y rellenamos los campos
+        //Abrimos usuario BD, seleccio0namos la ruta de la foto, pintamos ImageView
         BaseDatos db = Room.databaseBuilder(getApplicationContext(), BaseDatos.class, "tareaud4").allowMainThreadQueries().build(); //
         Usuario usuario = db.Dao().selectUsuario(user);
 
         Bitmap bitmap = BitmapFactory.decodeFile(usuario.foto);
+
+        //    bitmap =   rotarBitmap(bitmap, 90);                 // rotar imagen 90º
+
         ImageView imgeview = findViewById(R.id.imageView);
         imgeview.setImageBitmap(bitmap);
 
+
+        // rellenar EditTexts con datos de BD
         EditText ETnome = findViewById(R.id.editText_nombre);
         EditText ETapellidos = findViewById(R.id.editText_apellidos);
         EditText ETemail = findViewById(R.id.editText_email);
@@ -85,10 +93,6 @@ public class ModificarRegistroActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
 
 
     @Override
@@ -119,92 +123,18 @@ public class ModificarRegistroActivity extends AppCompatActivity {
     }
 
 
-    private void clickModificarRegistro() {
-        BaseDatos db = Room.databaseBuilder(getApplicationContext(), BaseDatos.class, "tareaud4").allowMainThreadQueries().build(); //
-
-
-        EditText ETnome = findViewById(R.id.editText_nombre);
-        EditText ETapellidos = findViewById(R.id.editText_apellidos);
-        EditText ETemail = findViewById(R.id.editText_email);
-        EditText ETpass = findViewById(R.id.editText_contraseña);
-        EditText ETpass2 = findViewById(R.id.editText_contraseña2);
-        TextView TVaviso = findViewById(R.id.textView_info);
-
-
-        String nome = ETnome.getText().toString();
-        String apellidos = ETapellidos.getText().toString();
-        String email = ETemail.getText().toString();
-        String pass = ETpass.getText().toString();
-        String pass2 = ETpass2.getText().toString();
-
-
-        if (nome.equals("") || apellidos.equals("") || email.equals("")) {
-            TVaviso.setText(R.string.camposVacios);
-        } else if (!email.contains("@") || !email.contains(".")) {
-            TVaviso.setText(R.string.emailIncorrecto);
-        } else {
-
-
-            //crompobamos  contraseñas son iguales
-            if (!pass.equals(pass2)) {
-                TVaviso.setText(R.string.ContraseñaDiferente);
-            } else {
-                TVaviso.setText("");
-
-                Usuario usuario = new Usuario();
-                usuario.usuario = user;
-                usuario.nombre = nome;
-                usuario.apellidos = apellidos;
-                usuario.email = email;
-                usuario.contraseña = pass;
-
-
-                if (rutaFoto == null) {
-                    rutaFoto = usuario.foto;
-                }
-
-                TVaviso.setText("");
-                db.Dao().updateUsuario(usuario.usuario, usuario.nombre, usuario.apellidos, usuario.contraseña, rutaFoto, usuario.email);
-
-                Usuario usuarioNuevo = db.Dao().selectUsuario(usuario.usuario);
-
-                Toast toastregistrado = Toast.makeText(this, String.format("Usuario modificado\n%s\n%s\n%s\n%s", usuarioNuevo.usuario, usuarioNuevo.email, usuarioNuevo.nombre, usuarioNuevo.apellidos), Toast.LENGTH_LONG);
-                toastregistrado.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                toastregistrado.show();
-
-                finish();
-
-
-            }
-        }
-    }
-
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return false;
     }
 
-    public void clickModificar(View view) {
-
-        clickModificarRegistro();
-
-    }
-
-    public void borrarCampo(View view) {
-
-        TextView campo = findViewById(R.id.editText_nombre);
-        campo.setText("");
-        campo.requestFocus();
-
-    }
 
     //abrimos la activity del SO que gestiona camara
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void ClicFoto(View view) {
 
-        nomeFoto = "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        nomeFoto = "JPEG_" + (new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date())) + ".jpg";
 
 
         //conseguimos la  foto creamos File
@@ -242,7 +172,7 @@ public class ModificarRegistroActivity extends AppCompatActivity {
 
 
             } else {
-                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "permiso camara denegado", Toast.LENGTH_LONG).show();
             }
 
         }
@@ -255,25 +185,111 @@ public class ModificarRegistroActivity extends AppCompatActivity {
 
         if (resultCode == RESULT_OK) {
 
-
-            ruta = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
             arquivo = new File(ruta, nomeFoto);
             if (arquivo.exists()) {
 
                 rutaFoto = arquivo.getAbsolutePath();
-
                 Bitmap bitmap = BitmapFactory.decodeFile(rutaFoto);
-                ImageView imgeview = findViewById(R.id.imageView);
 
+                ImageView imgeview = findViewById(R.id.imageView);
                 imgeview.setImageBitmap(bitmap);
 
-            } else {
-                return;
             }
-
-
         }
     }
 
+    private void clickModificarRegistro() {
+        BaseDatos db = Room.databaseBuilder(getApplicationContext(), BaseDatos.class, "tareaud4").allowMainThreadQueries().build(); //
+        Usuario usuario = db.Dao().selectUsuario(user);
+
+        EditText ETnome = findViewById(R.id.editText_nombre);
+        EditText ETapellidos = findViewById(R.id.editText_apellidos);
+        EditText ETemail = findViewById(R.id.editText_email);
+        EditText ETpass = findViewById(R.id.editText_contraseña);
+        EditText ETpass2 = findViewById(R.id.editText_contraseña2);
+        TextView TVaviso = findViewById(R.id.textView_info);
+
+
+        String nome = ETnome.getText().toString();
+        String apellidos = ETapellidos.getText().toString();
+        String email = ETemail.getText().toString();
+        String pass = ETpass.getText().toString();
+        String pass2 = ETpass2.getText().toString();
+
+
+        if (nome.equals("") || apellidos.equals("") || email.equals("")) {
+            TVaviso.setText(R.string.camposVacios);
+        } else if (!email.contains("@") || !email.contains(".")) {
+            TVaviso.setText(R.string.emailIncorrecto);
+        } else {
+            //crompobamos  contraseñas son iguales
+            if (!pass.equals(pass2)) {
+                TVaviso.setText(R.string.ContraseñaDiferente);
+            } else {
+                TVaviso.setText("");
+
+                Usuario updateUsuario = new Usuario();
+                updateUsuario.usuario = user;
+                updateUsuario.nombre = nome;
+                updateUsuario.apellidos = apellidos;
+                updateUsuario.email = email;
+                updateUsuario.contraseña = pass;
+
+                // si no quitamos una foto nueva mantenemos la anterior para enviarle al update
+                if (rutaFoto == null) {
+                    rutaFoto = usuario.foto;
+
+                }else{
+
+                    // borramos la foto vieja
+                    arquivo = new File(usuario.foto);
+                    if (arquivo.exists()) {
+                        arquivo.delete();
+                    }
+                }
+
+
+
+                TVaviso.setText("");
+                db.Dao().updateUsuario(updateUsuario.usuario, updateUsuario.nombre, updateUsuario.apellidos, updateUsuario.contraseña, rutaFoto, updateUsuario.email);
+
+                Usuario usuarioNuevo = db.Dao().selectUsuario(updateUsuario.usuario);
+
+                Toast toastregistrado = Toast.makeText(this, String.format("Usuario modificado\n%s\n%s\n%s\n%s", usuarioNuevo.usuario, usuarioNuevo.email, usuarioNuevo.nombre, usuarioNuevo.apellidos), Toast.LENGTH_LONG);
+                toastregistrado.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toastregistrado.show();
+
+
+
+
+
+
+                finish();
+
+
+            }
+        }
+    }
+
+    public void clickModificar(View view) {
+
+        clickModificarRegistro();
+
+    }
+
+    public void borrarCampo(View view) {
+
+        TextView campo = findViewById(R.id.editText_nombre);
+        campo.setText("");
+        campo.requestFocus();
+
+    }
+
+
+    public static Bitmap rotarBitmap(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+    }
 
 }

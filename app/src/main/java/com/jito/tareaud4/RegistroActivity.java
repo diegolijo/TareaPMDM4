@@ -61,12 +61,12 @@ public class RegistroActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return false;
     }
+
 
 
     public void ClickRexistro(View view) {
@@ -160,7 +160,7 @@ public class RegistroActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void ClicFoto(View view) {
 
-        nomeFoto = "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        nomeFoto = "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".jpg";
 
 
         //conseguimos la  foto creamos File
@@ -206,9 +206,6 @@ public class RegistroActivity extends AppCompatActivity {
 
         if (resultCode == RESULT_OK) {
 
-
-            ruta = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            arquivo = new File(ruta, nomeFoto);
             if (arquivo.exists()) {
 
                 rutaFoto = arquivo.getAbsolutePath();
@@ -218,11 +215,8 @@ public class RegistroActivity extends AppCompatActivity {
 
                 imgeview.setImageBitmap(bitmap);
 
-            } else {
-                return;
+
             }
-
-
         }
     }
 

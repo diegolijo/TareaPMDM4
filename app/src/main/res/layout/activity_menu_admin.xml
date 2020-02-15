@@ -17,36 +17,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <TextView
-        android:id="@+id/textView_nombre"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:textColorLink="#2B2B2B"
-        android:textSize="8sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
     <view
         android:id="@+id/view_foto"
         class="androidx.appcompat.widget.AppCompatImageView"
         android:layout_width="174dp"
         android:layout_height="222dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="@+id/textView_nombre"
-        app:layout_constraintTop_toTopOf="@+id/textView_nombre" />
-
-    <TextView
-        android:id="@+id/TextView_nombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_nome" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="416dp"
@@ -107,5 +86,15 @@
             app:layout_constraintStart_toStartOf="@+id/button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView_nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

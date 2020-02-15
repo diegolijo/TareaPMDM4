@@ -17,8 +17,6 @@ import android.widget.TextView;
 import com.jito.tareaud4.dummy.datos.BaseDatos;
 import com.jito.tareaud4.dummy.datos.Usuario;
 
-import java.text.MessageFormat;
-
 public class MenuActivity extends AppCompatActivity {
 
     public static String usuario;
@@ -45,8 +43,8 @@ public class MenuActivity extends AppCompatActivity {
         Usuario usuarioBD = db.Dao().selectUsuario(usuario);
 
         //escribimos la etiqueta con el nombre del usuario
-        TextView tvNombre = findViewById(R.id.TextView_nombre);
-        tvNombre.setText(R.string.Benvido + usuarioBD.nombre+" "+usuarioBD.apellidos);
+        TextView tvNombre = findViewById(R.id.textView_nome);
+        tvNombre.setText( getString(R.string.Benvido)+ " " + usuarioBD.nombre+" "+usuarioBD.apellidos);
 
 
         //pintamos el imageview con la foto (ruta guardada en la BD)
@@ -56,6 +54,27 @@ public class MenuActivity extends AppCompatActivity {
             imgeview.setImageBitmap(bitmap);
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // abrir bd
+        BaseDatos db = Room.databaseBuilder(getApplicationContext(),
+                BaseDatos.class, "tareaud4").allowMainThreadQueries().build(); //
+        //buscar usuario
+        Usuario usuarioBD = db.Dao().selectUsuario(usuario);
+
+
+        //pintamos el imageview con la foto (ruta guardada en la BD)
+        Bitmap bitmap = BitmapFactory.decodeFile(usuarioBD.foto);
+        if (bitmap != null) {
+            ImageView imgeview = findViewById(R.id.view_foto);
+            imgeview.setImageBitmap(bitmap);
+
+
+        }
     }
 
 
@@ -86,7 +105,7 @@ public class MenuActivity extends AppCompatActivity {
                 verCompras();
                 return true;
             case R.id.menu_modificarReistro:
-                clickModificarDatos();
+               modificarDatos();
                 return true;
             case R.id.menu_alir:
                 finish();
@@ -143,13 +162,19 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
-    public void clickModificarDatos() {
+    public void modificarDatosBoton(View view) {
+
+        modificarDatos();
+    }
+
+
+    public void modificarDatos(){
 
         Intent intent = new Intent(this, ModificarRegistroActivity.class);
         intent.putExtra("usuario", usuario);
         startActivity(intent);
-    }
 
+    }
 
 
 

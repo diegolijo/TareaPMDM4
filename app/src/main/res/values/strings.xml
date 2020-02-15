@@ -53,5 +53,6 @@
     <string name="modificarDatos">Modificar Datos</string>
     <string name="Modfificar">Modificar</string>
     <string name="aceptar_pedido">Aceptar pedido¿?</string>
+    <string name="extension_foto">.jpg</string>
 
 </resources>
